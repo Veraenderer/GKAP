@@ -1,0 +1,15 @@
+package aufgabe1;
+
+import edu.uci.ics.jung.graph.util.EdgeType;
+
+public class Kante {
+private String name;
+private double wert;
+private EdgeType typ;
+
+public Kante (String namePar, double wertPar, EdgeType typPar) {
+	name=namePar;
+	wert=wertPar;
+	typ=typPar;
+}
+}
