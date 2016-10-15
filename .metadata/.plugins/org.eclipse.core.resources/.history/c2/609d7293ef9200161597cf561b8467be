@@ -245,18 +245,17 @@ public class OGraph implements Graph<Knoten,Kante> {
 	//2 Knoten sind durch Kanten verbunden
 	@Override
 	public int getNeighborCount(Knoten knoten) {
-		return getNeighbors(knoten).size();
+		int anzahl=0;
+		for (int i=0;i<knotenList.size();i++) {
+			
+		}
+		return anzahl;
 	}
 	//TODO
 	@Override
-	public Collection<Knoten> getNeighbors(Knoten knoten) {
-		ArrayList<Knoten> list = new ArrayList<Knoten>();
-		for (int i=0;i<knotenList.size();i++) {
-			if(isNeighbor(knoten,knotenList.get(i))) {
-				list.add(knotenList.get(i));
-			}
-		}
-		return list;
+	public Collection<Knoten> getNeighbors(Knoten arg0) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	@Override

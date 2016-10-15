@@ -241,43 +241,34 @@ public class OGraph implements Graph<Knoten,Kante> {
 		}
 		return list;
 	}
-
+	//TODO
 	//2 Knoten sind durch Kanten verbunden
 	@Override
-	public int getNeighborCount(Knoten knoten) {
-		return getNeighbors(knoten).size();
+	public int getNeighborCount(Knoten arg0) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 	//TODO
 	@Override
-	public Collection<Knoten> getNeighbors(Knoten knoten) {
-		ArrayList<Knoten> list = new ArrayList<Knoten>();
-		for (int i=0;i<knotenList.size();i++) {
-			if(isNeighbor(knoten,knotenList.get(i))) {
-				list.add(knotenList.get(i));
-			}
-		}
-		return list;
+	public Collection<Knoten> getNeighbors(Knoten arg0) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	@Override
 	public int getVertexCount() {
 		return kantenList.size();
 	}
-
+	//TODO
 	@Override
 	public Collection<Knoten> getVertices() {
 		return knotenList;
 	}
 
+	//TODO
 	@Override
-	public boolean isNeighbor(Knoten knoten1, Knoten knoten2) {
-		for (int i=0;i<kantenList.size();i++){
-			Knoten startKnoten = kantenList.get(i).getStartKnoten();
-			Knoten endKnoten = kantenList.get(i).getZielKnoten();
-			if((knoten1.equals(startKnoten)&&knoten2.equals(endKnoten))||(knoten2.equals(startKnoten)&&knoten1.equals(endKnoten))) {
-				return true;
-			}
-		}
+	public boolean isNeighbor(Knoten arg0, Knoten arg1) {
+		// TODO Auto-generated method stub
 		return false;
 	}
 	//TODO

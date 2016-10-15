@@ -4,12 +4,28 @@ import edu.uci.ics.jung.graph.util.EdgeType;
 
 public class Kante {
 private String name;
-private double wert;
+private int wert;
 private EdgeType typ;
 private Knoten startKnoten;
 private Knoten zielKnoten;
 
-public Kante (String namePar, double wertPar) {
+public Kante () {
+	name="";
+	wert=0;
+	typ=EdgeType.UNDIRECTED;
+	startKnoten=null;
+	zielKnoten=null;
+}
+
+public Kante (String namePar) {
+	name=namePar;
+	wert=0;
+	typ=EdgeType.UNDIRECTED;
+	startKnoten=null;
+	zielKnoten=null;
+}
+
+public Kante (String namePar, int wertPar) {
 	name=namePar;
 	wert=wertPar;
 	typ=EdgeType.UNDIRECTED;
@@ -17,7 +33,7 @@ public Kante (String namePar, double wertPar) {
 	zielKnoten=null;
 }
 
-public Kante (String namePar, double wertPar, EdgeType typPar) {
+public Kante (String namePar, int wertPar, EdgeType typPar) {
 	name=namePar;
 	wert=wertPar;
 	typ=typPar;
@@ -25,7 +41,7 @@ public Kante (String namePar, double wertPar, EdgeType typPar) {
 	zielKnoten=null;
 }
 
-public Kante (String namePar, double wertPar, EdgeType typPar, Knoten startKnotenPar, Knoten zielKnotenPar) {
+public Kante (String namePar, int wertPar, EdgeType typPar, Knoten startKnotenPar, Knoten zielKnotenPar) {
 	name=namePar;
 	wert=wertPar;
 	typ=typPar;
@@ -53,11 +69,11 @@ public void setZielKnoten(Knoten zielKnotenPar) {
 	zielKnoten = zielKnotenPar;
 }
 
-public double getWert() {
+public int getWert() {
 	return wert;
 }
 
-public void setWert(double wertPar) {
+public void setWert(int wertPar) {
 	wert = wertPar;
 }
 
@@ -67,6 +83,24 @@ public EdgeType getTyp() {
 
 public void setTyp(EdgeType typPar) {
 	typ = typPar;
+}
+
+public String toString () {
+	if(startKnoten==null||zielKnoten==null) {
+		return "";
+	}
+	String kantenString=startKnoten.getName();
+	if (typ.equals(EdgeType.UNDIRECTED)) {
+		kantenString=kantenString+" -- "+zielKnoten.getName();
+	}
+	else {
+		kantenString=kantenString+" -> "+zielKnoten.getName();
+	}
+	if (!name.equals("")){
+		kantenString=kantenString+" ("+name+")";
+	}
+	kantenString=kantenString+" : "+wert+";";
+	return kantenString;
 }
 
 }
