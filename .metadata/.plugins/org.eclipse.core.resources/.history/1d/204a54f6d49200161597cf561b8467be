@@ -223,7 +223,7 @@ public class OGraph implements Graph<Knoten,Kante> {
 
 	@Override
 	public Collection<Kante> getIncidentEdges(Knoten knoten) {
-		ArrayList<Kante> incidentKanten = new ArrayList<Kante>();
+		ArrayList<Kante> incidentKanten = new ArrayList();
 		for (int i=0; i<kantenList.size();i++) {
 			if(isIncident(knoten,kantenList.get(i))) {
 				incidentKanten.add(kantenList.get(i));

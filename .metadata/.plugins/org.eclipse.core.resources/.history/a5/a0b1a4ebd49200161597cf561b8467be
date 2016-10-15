@@ -206,40 +206,22 @@ public class OGraph implements Graph<Knoten,Kante> {
 		return kanten;
 	}
 
-	//TODO
-	//Knoten und Kante gehören zusammen
 	@Override
-	public boolean isIncident(Knoten knoten, Kante kante) {
-		if (kante.getStartKnoten().equals(knoten)||kante.getZielKnoten().equals(knoten)) {
-			return true;
-		}
-		return false;
-	}
-	
-	@Override
-	public int getIncidentCount(Kante kante) {
-		return getIncidentVertices(kante).size();
+	public int getIncidentCount(Kante arg0) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 	@Override
-	public Collection<Kante> getIncidentEdges(Knoten knoten) {
-		ArrayList<Kante> incidentKanten = new ArrayList<Kante>();
-		for (int i=0; i<kantenList.size();i++) {
-			if(isIncident(knoten,kantenList.get(i))) {
-				incidentKanten.add(kantenList.get(i));
-			}
-		}
-		return incidentKanten;
+	public Collection<Kante> getIncidentEdges(Knoten arg0) {
+		// TODO Auto-generated method stub
+		return null;
 	}
-	//TODO
+
 	@Override
-	public Collection<Knoten> getIncidentVertices(Kante kante) {
-		LinkedList<Knoten> list = new LinkedList<Knoten>();
-		list.add(kante.getStartKnoten());
-		if (!kante.getStartKnoten().equals(kante.getZielKnoten())) {
-			list.add(kante.getZielKnoten());
-		}
-		return list;
+	public Collection<Knoten> getIncidentVertices(Kante arg0) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	//TODO
 	//2 Knoten sind durch Kanten verbunden
@@ -262,9 +244,16 @@ public class OGraph implements Graph<Knoten,Kante> {
 	//TODO
 	@Override
 	public Collection<Knoten> getVertices() {
-		return knotenList;
+		// TODO Auto-generated method stub
+		return null;
 	}
-
+	//TODO
+	//Knoten und Kante gehören zusammen
+	@Override
+	public boolean isIncident(Knoten arg0, Kante arg1) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 	//TODO
 	@Override
 	public boolean isNeighbor(Knoten arg0, Knoten arg1) {

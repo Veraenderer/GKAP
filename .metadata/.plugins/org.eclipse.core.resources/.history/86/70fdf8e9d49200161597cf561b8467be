@@ -1,5 +1,7 @@
 package aufgabe1;
 
+import edu.uci.ics.jung.graph.util.EdgeType;
+
 public class Knoten {
 	private String name;
 	private double wert;

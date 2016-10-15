@@ -1,5 +1,7 @@
 package aufgabe1;
 
+import edu.uci.ics.jung.graph.util.EdgeType;
+
 public class Knoten {
 	private String name;
 	private double wert;
@@ -7,11 +9,6 @@ public class Knoten {
 	public Knoten (String namePar, double wertPar) {
 		name=namePar;
 		wert=wertPar;
-	}
-	
-	public Knoten (String namePar) {
-		name=namePar;
-		wert=0;
 	}
 
 	public String getName() {
