@@ -6,10 +6,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import edu.uci.ics.jung.graph.Graph;
+
 public class SaveLoad { 
 	
 	public static boolean save (OGraph graphPar, String destination) {
 		ArrayList<Kante> kanten;
+		@SuppressWarnings("unchecked")
 		Collection<Kante> kantenCollect = graphPar.getEdges();
 		if (kantenCollect.getClass()==ArrayList.class) {
 			kanten=(ArrayList<Kante>)kantenCollect;
@@ -19,6 +22,7 @@ public class SaveLoad {
 		}
 		
 		ArrayList<Knoten> knoten;
+		@SuppressWarnings("unchecked")
 		Collection<Knoten> knotenCollect = graphPar.getVertices();
 		if (knotenCollect.getClass()==ArrayList.class) {
 			knoten=(ArrayList<Knoten>)knotenCollect;
@@ -55,7 +59,7 @@ public class SaveLoad {
 		return true;
 	}
 	
-	public static OGraph load (File filePar) {
+	public static Graph load (File filePar) {
 		return null;
 	}
 }

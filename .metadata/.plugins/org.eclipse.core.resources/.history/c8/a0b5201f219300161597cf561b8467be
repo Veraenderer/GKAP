@@ -40,11 +40,7 @@ public class OGraph implements Graph<Knoten,Kante> {
 		return true;
 	}
 	
-	public boolean createEdge(Knoten startKnoten, Knoten zielKnoten, String kantenName, EdgeType typ, int wert) {
-		Kante kante = new Kante(kantenName, wert, typ, startKnoten, zielKnoten);
-		return addEdge(kante,startKnoten,zielKnoten);
-	}
-	
+
 	@Override
 	public boolean addEdge(Kante kante, Knoten startKnoten, Knoten zielKnoten) {
 		if (knotenZuKante(kante, startKnoten, zielKnoten)||kontrollierKnoten(startKnoten,zielKnoten)) {

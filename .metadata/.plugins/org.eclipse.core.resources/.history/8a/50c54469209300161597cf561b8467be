@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import edu.uci.ics.jung.graph.Graph;
+
 public class SaveLoad { 
 	
 	public static boolean save (OGraph graphPar, String destination) {
