@@ -3,7 +3,7 @@ package aufgabe1;
 public class Knoten {
 	private String name;
 	private double wert;
-
+	
 	public Knoten (String namePar, double wertPar) {
 		name=namePar;
 		wert=wertPar;
