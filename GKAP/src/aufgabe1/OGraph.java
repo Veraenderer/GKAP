@@ -2,6 +2,7 @@ package aufgabe1;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -9,15 +10,31 @@ import edu.uci.ics.jung.graph.Graph;
 import edu.uci.ics.jung.graph.util.EdgeType;
 import edu.uci.ics.jung.graph.util.Pair;
 
+/**
+ * Die Klasse OGraph speichert die Knoten und Kanten eines Graphen als Listen, bietet Funktionalitäten zum Hinzufügen und Entfernen und weitere nötige Operationen für das Zeichnen des Graphen an.
+ * 
+ * @author Kira Wewer, Kristian Exß
+ *
+ */
 public class OGraph implements Graph<Knoten,Kante> {
 	private List<Knoten> knotenList;
 	private List<Kante> kantenList;
 	
+	/**
+	 * Kontruktor
+	 */
 	public OGraph () {
 		knotenList=new ArrayList<Knoten>();
 		kantenList=new ArrayList<Kante>();
 	}
 	
+	/**
+	 * Verbindet eine Kante mit einem Start und Zielknoten. Überschreibt eventuell vorhandene Informationen im Kantenobjekt.
+	 * 
+	 * @param kante Zielobjekt
+	 * @param startKnoten Startknoten bei einem gerichteten Graphen.
+	 * @param zielKnoten Zielknoten bei einem gerichteten Graphen.
+	 */
 	private boolean knotenZuKante(Kante kante, Knoten startKnoten, Knoten zielKnoten) {
 		if (kante==null||startKnoten==null||zielKnoten==null) {
 			return false;
@@ -27,6 +44,12 @@ public class OGraph implements Graph<Knoten,Kante> {
 		return true;
 	}
 	
+	/**
+	 * Helper um sicher zu stellen, dass nicht mehrfach der gleiche Knoten hinzugefügt wird.
+	 * 
+	 * @param startKnoten
+	 * @param zielKnoten
+	 */
 	private boolean kontrollierKnoten (Knoten startKnoten, Knoten zielKnoten) {
 		if (startKnoten==null||zielKnoten==null) {
 			return false;
@@ -40,20 +63,35 @@ public class OGraph implements Graph<Knoten,Kante> {
 		return true;
 	}
 	
+	/**
+	 * Erstellt eine gerichtete oder ungerichtete Kante und fügt sie der Kantenliste des Graphen hinzu.
+	 * 
+	 * @param startKnoten Startknoten bei einem gerichteten Graphen.
+	 * @param zielKnoten Zielknoten bei einem gerichteten Graphen.
+	 * @param kantenName Name der Kante.
+	 * @param typ EdgeType.UNDIRECTED oder EdgeType.DIRECTED
+	 * @param wert Für eine Gewichtung != 0 setzen, ansonsten auf 0 setzen.
+	 */
 	public boolean createEdge(Knoten startKnoten, Knoten zielKnoten, String kantenName, EdgeType typ, int wert) {
 		Kante kante = new Kante(kantenName, wert, typ, startKnoten, zielKnoten);
 		return addEdge(kante,startKnoten,zielKnoten);
 	}
 	
+	/**
+	 * Fügt eine (ungerichtete, sofern nicht vorher modifiziert) Kante mit Start- und Zielknoten der Kantenliste des Graphen hinzu. Name und Wert werden der Kante entnommen.
+	 */
 	@Override
 	public boolean addEdge(Kante kante, Knoten startKnoten, Knoten zielKnoten) {
-		if (knotenZuKante(kante, startKnoten, zielKnoten)||kontrollierKnoten(startKnoten,zielKnoten)) {
+		if (!knotenZuKante(kante, startKnoten, zielKnoten)||!kontrollierKnoten(startKnoten,zielKnoten)) {
 			return false;
 		}
 		kantenList.add(kante);
 		return true;
 	}
-
+	
+	/**
+	 * Fügt der Kantenliste eine gerichtete oder ungerichtete Kante mit Start- und Zielknoten der Kantenliste des Graphen hinzu. Name und Wert werden der Kante entnommen.
+	 */
 	@Override
 	public boolean addEdge(Kante kante, Knoten startKnoten, Knoten zielKnoten, EdgeType typ) {
 		if (typ==null||kante==null) {
@@ -63,6 +101,10 @@ public class OGraph implements Graph<Knoten,Kante> {
 		return addEdge(kante,startKnoten,zielKnoten);
 	}
 	
+	/**
+	 * 
+	 */
+	//TODO Was macht diese Funktion bitte?
 	@Override
 	public boolean addEdge(Kante kante, Collection<? extends Knoten> knoten) {
 		if(knoten==null||knoten.size()==0) {
@@ -77,6 +119,10 @@ public class OGraph implements Graph<Knoten,Kante> {
 		}
 	}
 
+	/**
+	 * Setzt den Typ einer Kante fest und fügt sie dann der Kantenliste hinzu.
+	 * 
+	 */
 	@Override
 	public boolean addEdge(Kante kante, Collection<? extends Knoten> knoten, EdgeType typ) {
 		if (typ==null||kante==null) {
@@ -86,6 +132,9 @@ public class OGraph implements Graph<Knoten,Kante> {
 		return addEdge(kante,knoten);
 	}
 
+	/**
+	 * Falls ein Knoten noch nicht Teil der Knotenliste ist wird er hinzu gefügt.
+	 */
 	@Override
 	public boolean addVertex(Knoten knoten) {
 		if (knoten==null||containsVertex(knoten)) {
@@ -94,7 +143,10 @@ public class OGraph implements Graph<Knoten,Kante> {
 		knotenList.add(knoten);
 		return true;
 	}
-
+	
+	/**
+	 * Prüft ob eine Kante in der Kantenliste vorhanden ist. Jede Kante darf es nur einmal geben, wobei mehrere Kanten (zB mit unterschiedlichen Namen und Gewichtungen) von einem Start- zum gleichen Zielknoten gehen können.
+	 */
 	@Override
 	public boolean containsEdge(Kante kante) {
 		if (kante==null) {
@@ -107,7 +159,10 @@ public class OGraph implements Graph<Knoten,Kante> {
 		}
 		return false;
 	}
-
+	
+	/**
+	 * Prüft ob ein Knoten in der Knotenliste vorhanden ist. Jeder Knoten muss einzigartig sein.
+	 */
 	@Override
 	public boolean containsVertex(Knoten knoten) {
 		if (knoten==null) {
@@ -121,12 +176,37 @@ public class OGraph implements Graph<Knoten,Kante> {
 		return false;
 	}
 
+	/**
+	 * 
+	 */
+	//TODO Methode im Auge behalten. Nicht sicher wie sie zu implementiert ist wie sie sein soll. Eventuell sollten auch ein- und ausgangsdegree Methoden eingebaut werden
 	@Override
-	public int degree(Knoten arg0) {
+	public int degree(Knoten knoten) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
+	/**
+	 * Gibt die Anzahl der ausgehenden Kanten an.
+	 */
+	@Override
+	public int outDegree(Knoten arg0) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
+	/**
+	 * Gibt die Anzahl der eingehenden Kanten an.
+	 */
+	@Override
+	public int inDegree(Knoten arg0) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
+	/**
+	 * @return kante Gibt die Kante zurück wenn sie enthalten ist, ansonsten gibt die Funktion null zurück.
+	 */
 	@Override
 	public Kante findEdge(Knoten startKnoten, Knoten zielKnoten) {
 		if (startKnoten==null||zielKnoten==null) {
@@ -142,6 +222,10 @@ public class OGraph implements Graph<Knoten,Kante> {
 		return null;
 	}
 
+	/**
+	 * Gibt ein Set von Kanten zurück, die den gleichen Start- und Zielknoten verbinden.
+	 */
+	//TODO Lieber mit Set arbeiten!
 	@Override
 	public Collection<Kante> findEdgeSet(Knoten startKnoten, Knoten zielKnoten) {
 		LinkedList<Kante> kanten = new LinkedList<Kante>();
@@ -157,17 +241,27 @@ public class OGraph implements Graph<Knoten,Kante> {
 		}
 		return kanten;
 	}
-
+	
+	/**
+	 * @return EdgeType.UNDIRECTED
+	 */
 	@Override
 	public EdgeType getDefaultEdgeType() {
 		return EdgeType.UNDIRECTED;
 	}
 
+	/**
+	 * Gibt die Anzahl der Kanten in der Kantenliste zurück.
+	 */
 	@Override
 	public int getEdgeCount() {
 		return kantenList.size();
 	}
 
+	/**
+	 * Gibt die Anzahl der Kanten eines bestimmten Types zurück.
+	 */
+	//TODO Alternativ nur gerichtete oder ungerichtete Kanten erlauben in einem Graphen, dann wird die unnötig
 	@Override
 	public int getEdgeCount(EdgeType typ) {
 		// TODO Effizientere Möglichkeit einbauen, wenn möglich
@@ -181,7 +275,10 @@ public class OGraph implements Graph<Knoten,Kante> {
 		}
 		return anzahl;
 	}
-
+	
+	/**
+	 * @return EdgeType der Kante
+	 */
 	@Override
 	public EdgeType getEdgeType(Kante kante) {
 		if (kante==null) {
@@ -190,11 +287,19 @@ public class OGraph implements Graph<Knoten,Kante> {
 		return kante.getTyp();
 	}
 
+	/**
+	 * @return Gibt das Set der Kanten zurück.
+	 */
+	//TODO zu Set ändern
 	@Override
 	public Collection<Kante> getEdges() {
 		return kantenList;
 	}
-
+	
+	/**
+	 * Gibt das Set der Kanten eine bestimmten Typs zurück.
+	 */
+	//TODO zu Set ändern
 	@Override
 	public Collection<Kante> getEdges(EdgeType typ) {
 		ArrayList<Kante> kanten = new ArrayList<Kante>();
@@ -209,9 +314,12 @@ public class OGraph implements Graph<Knoten,Kante> {
 		}
 		return kanten;
 	}
-
-	//TODO
-	//Knoten und Kante gehören zusammen
+	
+	/**
+	 * Incident bedeutet eine Kante ist mit einem Knoten verbunden.
+	 * 
+	 * @return True oder False
+	 */
 	@Override
 	public boolean isIncident(Knoten knoten, Kante kante) {
 		if (kante.getStartKnoten().equals(knoten)||kante.getZielKnoten().equals(knoten)) {
@@ -220,11 +328,18 @@ public class OGraph implements Graph<Knoten,Kante> {
 		return false;
 	}
 	
+	/**
+	 * @return Gibt 1 zurück bei einer Schleife und 2 bei einer Kante, die zwei verschiedene Knoten verbindet.
+	 */
 	@Override
 	public int getIncidentCount(Kante kante) {
 		return getIncidentVertices(kante).size();
 	}
 
+	/**
+	 * Gibt ein Set aus Kanten zurück, die mit diesem Knoten incident sind.
+	 */
+	//TODO zu Set ändern
 	@Override
 	public Collection<Kante> getIncidentEdges(Knoten knoten) {
 		ArrayList<Kante> incidentKanten = new ArrayList<Kante>();
@@ -235,7 +350,11 @@ public class OGraph implements Graph<Knoten,Kante> {
 		}
 		return incidentKanten;
 	}
-	//TODO
+	
+	/**
+	 * Gibt den/die Knoten einer Kante als Set zurück.
+	 */
+	//TODO zu Set ändern
 	@Override
 	public Collection<Knoten> getIncidentVertices(Kante kante) {
 		LinkedList<Knoten> list = new LinkedList<Knoten>();
@@ -245,13 +364,20 @@ public class OGraph implements Graph<Knoten,Kante> {
 		}
 		return list;
 	}
-
+	
+	/**
+	 * Gibt die Anzahl der Knoten zurück, die mit einer Kante mit diesem Knoten verbunden sind.
+	 */
 	//2 Knoten sind durch Kanten verbunden
 	@Override
 	public int getNeighborCount(Knoten knoten) {
 		return getNeighbors(knoten).size();
 	}
-	//TODO
+	
+	/**
+	 * Gibt ein Set aus Nachbarn (= über eine Kante verbundene Knoten) eines Knoten zurück.
+	 */
+	//TODO zu Set ändern
 	@Override
 	public Collection<Knoten> getNeighbors(Knoten knoten) {
 		ArrayList<Knoten> list = new ArrayList<Knoten>();
@@ -263,16 +389,26 @@ public class OGraph implements Graph<Knoten,Kante> {
 		return list;
 	}
 	
+	/**
+	 * Gibt die Anzahl der Kanten im Graph an.
+	 */
 	@Override
 	public int getVertexCount() {
 		return kantenList.size();
 	}
 
+	/**
+	 * Gibt das Set mit allen Kanten des Graphen zurück.
+	 */
+	//TODO zu Set ändern
 	@Override
 	public Collection<Knoten> getVertices() {
 		return knotenList;
 	}
 
+	/**
+	 * @return True wenn eine Kante aus dem Kantenset diese Knoten verbindet, sonst False.
+	 */
 	@Override
 	public boolean isNeighbor(Knoten knoten1, Knoten knoten2) {
 		for (int i=0;i<kantenList.size();i++){
@@ -284,113 +420,184 @@ public class OGraph implements Graph<Knoten,Kante> {
 		}
 		return false;
 	}
-	//TODO
+	
+	/**
+	 * Entfernt eine Kante aus dem Kantenset des Graphen.
+	 */
 	@Override
-	public boolean removeEdge(Kante arg0) {
-		// TODO Auto-generated method stub
+	public boolean removeEdge(Kante kante) {
+		if (kante==null) {
+			return false;
+		}
+		for (int i=0; i<kantenList.size(); i++) {
+			if (kante.equals(kantenList.get(i))){
+				kantenList.remove(i);
+				return true;
+			}
+		}
 		return false;
 	}
-	//TODO
+	
+	/**
+	 * Entfernt einen Knoten aus dem Kantenset des Graphen.
+	 */
 	@Override
-	public boolean removeVertex(Knoten arg0) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean removeVertex(Knoten knoten) {
+		if (knoten==null||!containsVertex(knoten)) {
+			return false;
+		}
+		Collection<Kante> kanten = getIncidentEdges(knoten);
+		Iterator<Kante> iterator = kanten.iterator();
+		while (iterator.hasNext()) {
+			Kante kante = iterator.next();
+			if (!removeEdge(kante)) {
+				return false;
+			}
+		}
+		for (int i=0; i<knotenList.size();i++) {
+			if(knotenList.get(i).equals(knoten)) {
+				knotenList.remove(i);
+			}
+		}
+		return true;
 	}
 
+	/**
+	 * Gibt den Zielknoten einer gerichteten Kante zurück oder den 2. Knoten einer ungerichteten Kante.
+	 */
 	@Override
-	public Knoten getDest(Kante arg0) {
-		// TODO Auto-generated method stub
-		return null;
+	public Knoten getDest(Kante kante) {
+		return kante.getZielKnoten();
 	}
 
+	/**
+	 * 
+	 */
+	//TODO Pair<E1, E2> arbeitet doch eigentlich mit 2 Elementen?! Java hat kein Pair.
 	@Override
 	public Pair<Knoten> getEndpoints(Kante arg0) {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	
+	/**
+	 * Gibt ein Set aller eingehenden Kanten (= haben diesen Knoten als Zielknoten) dieses Knotens aus.
+	 */
+	//TODO zu Set ändern
 	@Override
 	public Collection<Kante> getInEdges(Knoten arg0) {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	
+	/**
+	 * Gibt den anderen Knoten mit dem die Kante verbunden ist zurück
+	 */
 	@Override
-	public Knoten getOpposite(Knoten arg0, Kante arg1) {
-		// TODO Auto-generated method stub
+	public Knoten getOpposite(Knoten knoten, Kante kante) {
+		if(knoten==null||kante==null) {
+			return null;
+		}
+		if (knoten.equals(kante.getStartKnoten())) {
+			return kante.getZielKnoten();
+		}
+		else if (knoten.equals(kante.getZielKnoten())) {
+			return kante.getStartKnoten();
+		}
 		return null;
 	}
-	//TODO
+	
+	/**
+	 * Gibt ein Set aller ausgehenden Kanten (= haben diesen Knoten als Startknoten) dieses Knotens aus.
+	 */
+	//TODO zu Set ändern
 	@Override
 	public Collection<Kante> getOutEdges(Knoten arg0) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
+	//TODO Was macht diese Funktion? Anzahl der Knoten zählen, von der man mit ausgehenden Kanten kommt?
 	@Override
 	public int getPredecessorCount(Knoten arg0) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
+	//TODO Siehe oben.
 	@Override
 	public Collection<Knoten> getPredecessors(Knoten arg0) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
+	/**
+	 * Gibt den Startknoten einer gerichteten Kante aus oder den ersten Knoten einer ungerichteten Kante.
+	 */
 	@Override
-	public Knoten getSource(Kante arg0) {
-		// TODO Auto-generated method stub
-		return null;
+	public Knoten getSource(Kante kante) {
+		return kante.getStartKnoten();
 	}
-
+	
+	/**
+	 * Gibt die Zielknoten von allen incidenten gerichteten Kanten aus und die anderen Knoten aller incidenten ungerichteten Kanten
+	 */
+	//TODO Was macht diese Funktion? Anzahl der Knoten ausgeben, die zu diesem Knoten mit einer ausgehenden Kante kommen?
 	@Override
-	public int getSuccessorCount(Knoten arg0) {
-		// TODO Auto-generated method stub
+	public int getSuccessorCount(Knoten knoten) {
+		
 		return 0;
 	}
 
+	/**
+	 * Gibt die Zielknoten von allen incidenten gerichteten Kanten aus und die anderen Knoten aller incidenten ungerichteten Kanten
+	 */
+	//TODO zu Set ändern
 	@Override
 	public Collection<Knoten> getSuccessors(Knoten arg0) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
-	public int inDegree(Knoten arg0) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 
+
+	/**
+	 * Testet ob ein Knoten Zielknoten dieser Kante ist.
+	 */
 	@Override
-	public boolean isDest(Knoten arg0, Kante arg1) {
-		// TODO Auto-generated method stub
+	public boolean isDest(Knoten knoten, Kante kante) {
+		if((kante.getTyp().equals(EdgeType.UNDIRECTED)&&kante.getStartKnoten().equals(knoten))||kante.getZielKnoten().equals(kante)) {
+			return true;
+		}
 		return false;
 	}
 
+	//TODO Was macht ist ein Predecessor? s.o.
 	@Override
 	public boolean isPredecessor(Knoten arg0, Knoten arg1) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
+	/**
+	 * Tests ob ein Knoten Startknoten der Kante ist.
+	 */
 	@Override
 	public boolean isSource(Knoten arg0, Kante arg1) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
+	/**
+	 * 
+	 */
+	//TODO Was ist ein Successor? s.o.
 	@Override
 	public boolean isSuccessor(Knoten arg0, Knoten arg1) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
-	@Override
-	public int outDegree(Knoten arg0) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+
 
 }

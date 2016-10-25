@@ -93,7 +93,12 @@ public class SaveLoad {
 		}
 		//Alle Whitespaces werden entfernt
 		int anzahlDerAnw = tokenList.size();
-		tokenList.stream().forEach((String s)->tokenList.add(s.replaceAll("\\s+", "")));
+		try {
+			tokenList.stream().forEach((String s)->tokenList.add(s.replaceAll("\\s+", "")));
+		}
+		catch(Exception e) {
+			
+		}
 		for(int i=0;i<anzahlDerAnw;i++) {
 			tokenList.removeFirst();
 		}
@@ -108,12 +113,12 @@ public class SaveLoad {
 				knotenname = tokenList.get(i).substring(0, tokenList.get(i).indexOf('-'));
 			}
 			if(!knotenMap.containsKey(knotenname)) {
-				knotenMap.put(knotenname, new Knoten(tokenList.get(i)));
+				knotenMap.put(knotenname, new Knoten(knotenname));
 			}
 		}
 		//Graph wird erstellt und Knoten werden eingelesen
 		OGraph graph = new OGraph();
-		knotenMap.forEach((s,knoten)->graph.addVertex(knoten)); //kann wahrscheinlich entfernt werden TODO
+		knotenMap.forEach((s,knoten)->graph.addVertex(knoten));
 		//Lese Anweisungen aus
 		for (int i=0; i<tokenList.size();i++) {
 			String anweisung = tokenList.get(i);

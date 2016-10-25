@@ -3,8 +3,7 @@ package aufgabe1;
 public class Main {
 	
 	public static void main(String[] args) {
-		String s = "abcd";
-		System.out.println(s.substring(s.indexOf("bc")+2,s.length()));
+		Fenster window = new Fenster(); 
 	}
 
 }

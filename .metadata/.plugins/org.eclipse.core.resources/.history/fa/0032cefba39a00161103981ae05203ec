@@ -1,0 +1,30 @@
+package aufgabe1;
+
+import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+
+public class Fenster extends JFrame {
+	JMenuBar menubar;
+	JMenu files;
+	JMenuItem bSave, bLoad;
+	public Fenster() {
+		setTitle("Graphen");
+		setLayout(null);
+		
+		menubar = new JMenuBar();
+		files = new JMenu ("files");
+		bSave = new JMenuItem("save");
+		bLoad = new JMenuItem("load");
+		
+		files.add(bSave);
+		files.add(bLoad);
+		menubar.add(files);
+		
+		setJMenuBar(menubar);
+		setSize (800,600);
+	    setVisible (true);
+	    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	}
+}

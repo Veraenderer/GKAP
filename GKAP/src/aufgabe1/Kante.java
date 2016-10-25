@@ -2,6 +2,12 @@ package aufgabe1;
 
 import edu.uci.ics.jung.graph.util.EdgeType;
 
+/**
+ * Die Klasse Kante speichert die Informationen über ihren Start- und Zielknoten.
+ * 
+ * @author Kira Wewer, Kristian Exß
+ *
+ */
 public class Kante {
 private String name;
 private int wert;
@@ -9,6 +15,10 @@ private EdgeType typ;
 private Knoten startKnoten;
 private Knoten zielKnoten;
 
+
+/**
+ * Dieser Konstruktor initialisiert eine Kante mit dem Default-Wert 0 und ohne Namen. Die Kante ist ungerichtet.
+ */
 public Kante () {
 	name="";
 	wert=0;
@@ -17,6 +27,9 @@ public Kante () {
 	zielKnoten=null;
 }
 
+/**
+ * Dieser Konstruktor initialisiert eine Kante mit dem Default-Wert 0 und mit einem Namen. Die Kante ist ungerichtet.
+ */
 public Kante (String namePar) {
 	name=namePar;
 	wert=0;
@@ -25,6 +38,9 @@ public Kante (String namePar) {
 	zielKnoten=null;
 }
 
+/**
+ * Dieser Konstruktor ermöglicht der Kante eine bestimmte Gewichtung zu geben. Der Name muss ebenfalls gesetzt werden. Die Kante ist ungerichtet.
+ */
 public Kante (String namePar, int wertPar) {
 	name=namePar;
 	wert=wertPar;
@@ -33,6 +49,9 @@ public Kante (String namePar, int wertPar) {
 	zielKnoten=null;
 }
 
+/**
+ * Dieser Konstruktor initialisiert eine Kante mit einem Wert und Namen, sowie der Möglichkeit eine gerichtete Kante zu erstellen.
+ */
 public Kante (String namePar, int wertPar, EdgeType typPar) {
 	name=namePar;
 	wert=wertPar;
@@ -41,6 +60,9 @@ public Kante (String namePar, int wertPar, EdgeType typPar) {
 	zielKnoten=null;
 }
 
+/**
+ * Dieser Konstruktor initialisiert eine Kante mit einem Wert und Namen, sowie der Möglichkeit eine gerichtete Kante zu erstellen, außerdem einem Zielknoten und Startknoten.
+ */
 public Kante (String namePar, int wertPar, EdgeType typPar, Knoten startKnotenPar, Knoten zielKnotenPar) {
 	name=namePar;
 	wert=wertPar;

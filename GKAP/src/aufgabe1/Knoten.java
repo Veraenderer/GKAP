@@ -1,5 +1,11 @@
 package aufgabe1;
 
+/**
+ * Die Klasse Knoten speichert den Namen und Wert eines Knoten. Weitere Informationen wie Kanten, etc, sind in der Klasse OGraph zu finden.
+ * 
+ * @author Kira Wewer, Kristian Exﬂ
+ *
+ */
 public class Knoten {
 	private String name;
 	private double wert;
@@ -25,4 +31,6 @@ public class Knoten {
 	public void setWert(double wertPar) {
 		wert = wertPar;
 	}
+	
+	
 }
