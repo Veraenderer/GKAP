@@ -263,7 +263,6 @@ public class OGraph implements Graph<Knoten,Kante> {
 	 * Gibt die Anzahl der Kanten eines bestimmten Types zurück.
 	 */
 	//TODO Alternativ nur gerichtete oder ungerichtete Kanten erlauben in einem Graphen, dann wird die unnötig
-	//TODO Die Methode ist im Interface enthalten wie generell alle Methoden derren Namen in Englisch sind (zumindest in dieser Klasse)
 	@Override
 	public int getEdgeCount(EdgeType typ) {
 		// TODO Effizientere Möglichkeit einbauen, wenn möglich

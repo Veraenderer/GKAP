@@ -263,7 +263,6 @@ public class OGraph implements Graph<Knoten,Kante> {
 	 * Gibt die Anzahl der Kanten eines bestimmten Types zurück.
 	 */
 	//TODO Alternativ nur gerichtete oder ungerichtete Kanten erlauben in einem Graphen, dann wird die unnötig
-	//TODO Die Methode ist im Interface enthalten wie generell alle Methoden derren Namen in Englisch sind (zumindest in dieser Klasse)
 	@Override
 	public int getEdgeCount(EdgeType typ) {
 		// TODO Effizientere Möglichkeit einbauen, wenn möglich
@@ -542,27 +541,18 @@ public class OGraph implements Graph<Knoten,Kante> {
 		return set;
 	}
 
-
+	//TODO Was macht diese Funktion? Anzahl der Knoten zählen, von der man mit ausgehenden Kanten kommt?
 	@Override
 	public int getPredecessorCount(Knoten knoten) {
-		return getPredecessors(knoten).size();
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
-
+	//TODO Siehe oben.
 	@Override
-	public Collection<Knoten> getPredecessors(Knoten knoten) {
-		if (knoten==null) {
-			return null;
-		}
-		Iterator<Knoten> iterator = knotenList.iterator();
-		HashSet<Knoten> set = new HashSet<Knoten>();
-		while (iterator.hasNext()) {
-			Knoten predecessor = iterator.next();
-			if (isPredecessor(predecessor,knoten)) {
-				set.add(predecessor);
-			}
-		}
-		return set;
+	public Collection<Knoten> getPredecessors(Knoten arg0) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	/**
@@ -576,29 +566,21 @@ public class OGraph implements Graph<Knoten,Kante> {
 	/**
 	 * Gibt die Zielknoten von allen incidenten gerichteten Kanten aus und die anderen Knoten aller incidenten ungerichteten Kanten
 	 */
+	//TODO Was macht diese Funktion? Anzahl der Knoten ausgeben, die zu diesem Knoten mit einer ausgehenden Kante kommen?
 	@Override
 	public int getSuccessorCount(Knoten knoten) {
-		return getSuccessors(knoten).size();
+		
+		return 0;
 	}
 
 	/**
 	 * Gibt die Zielknoten von allen incidenten gerichteten Kanten aus und die anderen Knoten aller incidenten ungerichteten Kanten
-	 * Wenn der knoten null ist wird null zurückgegeben
 	 */
+	//TODO zu Set ändern
 	@Override
-	public Collection<Knoten> getSuccessors(Knoten knoten) {
-		if (knoten==null) {
-			return null;
-		}
-		Iterator<Knoten> iterator = knotenList.iterator();
-		HashSet<Knoten> set = new HashSet<Knoten>();
-		while (iterator.hasNext()) {
-			Knoten successor = iterator.next();
-			if (isSuccessor(successor,knoten)) {
-				set.add(successor);
-			}
-		}
-		return set;
+	public Collection<Knoten> getSuccessors(Knoten arg0) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 

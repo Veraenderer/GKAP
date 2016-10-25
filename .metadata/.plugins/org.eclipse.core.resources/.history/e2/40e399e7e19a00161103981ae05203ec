@@ -263,7 +263,6 @@ public class OGraph implements Graph<Knoten,Kante> {
 	 * Gibt die Anzahl der Kanten eines bestimmten Types zurück.
 	 */
 	//TODO Alternativ nur gerichtete oder ungerichtete Kanten erlauben in einem Graphen, dann wird die unnötig
-	//TODO Die Methode ist im Interface enthalten wie generell alle Methoden derren Namen in Englisch sind (zumindest in dieser Klasse)
 	@Override
 	public int getEdgeCount(EdgeType typ) {
 		// TODO Effizientere Möglichkeit einbauen, wenn möglich
@@ -585,6 +584,7 @@ public class OGraph implements Graph<Knoten,Kante> {
 	 * Gibt die Zielknoten von allen incidenten gerichteten Kanten aus und die anderen Knoten aller incidenten ungerichteten Kanten
 	 * Wenn der knoten null ist wird null zurückgegeben
 	 */
+	//TODO zu Set ändern
 	@Override
 	public Collection<Knoten> getSuccessors(Knoten knoten) {
 		if (knoten==null) {

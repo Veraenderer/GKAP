@@ -2,7 +2,6 @@ package aufgabe1;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -263,7 +262,6 @@ public class OGraph implements Graph<Knoten,Kante> {
 	 * Gibt die Anzahl der Kanten eines bestimmten Types zurück.
 	 */
 	//TODO Alternativ nur gerichtete oder ungerichtete Kanten erlauben in einem Graphen, dann wird die unnötig
-	//TODO Die Methode ist im Interface enthalten wie generell alle Methoden derren Namen in Englisch sind (zumindest in dieser Klasse)
 	@Override
 	public int getEdgeCount(EdgeType typ) {
 		// TODO Effizientere Möglichkeit einbauen, wenn möglich
@@ -324,9 +322,6 @@ public class OGraph implements Graph<Knoten,Kante> {
 	 */
 	@Override
 	public boolean isIncident(Knoten knoten, Kante kante) {
-		if (knoten==null||kante==null) {
-			return false;
-		}
 		if (kante.getStartKnoten().equals(knoten)||kante.getZielKnoten().equals(knoten)) {
 			return true;
 		}
@@ -476,34 +471,23 @@ public class OGraph implements Graph<Knoten,Kante> {
 	}
 
 	/**
-	 * Gibt den Start- und Zielknoten einer Kante als Pair<Knoten> zurück
+	 * 
 	 */
+	//TODO Pair<E1, E2> arbeitet doch eigentlich mit 2 Elementen?! Java hat kein Pair.
 	@Override
-	public Pair<Knoten> getEndpoints(Kante kante) {
-		if (kante==null) {
-			return null;
-		}
-		return new Pair<Knoten> (kante.getStartKnoten(),kante.getZielKnoten());
-		
+	public Pair<Knoten> getEndpoints(Kante arg0) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	/**
-	 * Gibt ein Set aller eingehenden gerichteten Kanten und aller ungerichteten Kanten dieses Knotens aus.
+	 * Gibt ein Set aller eingehenden Kanten (= haben diesen Knoten als Zielknoten) dieses Knotens aus.
 	 */
+	//TODO zu Set ändern
 	@Override
-	public Collection<Kante> getInEdges(Knoten knoten) {
-		if(knoten==null) {
-			return null;
-		}
-		Iterator<Kante> iterator = getIncidentEdges(knoten).iterator();
-		HashSet<Kante> set = new HashSet<Kante> ();
-		while (iterator.hasNext()) {
-			Kante kante = iterator.next();
-			if ((kante.getTyp().equals(EdgeType.UNDIRECTED)&&kante.getStartKnoten().equals(knoten))||(knoten.equals(kante.getZielKnoten()))) {
-				set.add(kante);
-			}
-		}
-		return set;
+	public Collection<Kante> getInEdges(Knoten arg0) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	/**
@@ -524,45 +508,27 @@ public class OGraph implements Graph<Knoten,Kante> {
 	}
 	
 	/**
-	 * Gibt ein Set aller ausgehenden gerichteten Kanten und aller ungerichteten Kanten dieses Knotens aus.
+	 * Gibt ein Set aller ausgehenden Kanten (= haben diesen Knoten als Startknoten) dieses Knotens aus.
 	 */
+	//TODO zu Set ändern
 	@Override
-	public Collection<Kante> getOutEdges(Knoten knoten) {
-		if(knoten==null) {
-			return null;
-		}
-		Iterator<Kante> iterator = getIncidentEdges(knoten).iterator();
-		HashSet<Kante> set = new HashSet ();
-		while (iterator.hasNext()) {
-			Kante kante = iterator.next();
-			if ((kante.getTyp().equals(EdgeType.UNDIRECTED)&&kante.getZielKnoten().equals(knoten))||(knoten.equals(kante.getStartKnoten()))) {
-				set.add(kante);
-			}
-		}
-		return set;
+	public Collection<Kante> getOutEdges(Knoten arg0) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
-
+	//TODO Was macht diese Funktion? Anzahl der Knoten zählen, von der man mit ausgehenden Kanten kommt?
 	@Override
-	public int getPredecessorCount(Knoten knoten) {
-		return getPredecessors(knoten).size();
+	public int getPredecessorCount(Knoten arg0) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
-
+	//TODO Siehe oben.
 	@Override
-	public Collection<Knoten> getPredecessors(Knoten knoten) {
-		if (knoten==null) {
-			return null;
-		}
-		Iterator<Knoten> iterator = knotenList.iterator();
-		HashSet<Knoten> set = new HashSet<Knoten>();
-		while (iterator.hasNext()) {
-			Knoten predecessor = iterator.next();
-			if (isPredecessor(predecessor,knoten)) {
-				set.add(predecessor);
-			}
-		}
-		return set;
+	public Collection<Knoten> getPredecessors(Knoten arg0) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	/**
@@ -576,29 +542,21 @@ public class OGraph implements Graph<Knoten,Kante> {
 	/**
 	 * Gibt die Zielknoten von allen incidenten gerichteten Kanten aus und die anderen Knoten aller incidenten ungerichteten Kanten
 	 */
+	//TODO Was macht diese Funktion? Anzahl der Knoten ausgeben, die zu diesem Knoten mit einer ausgehenden Kante kommen?
 	@Override
 	public int getSuccessorCount(Knoten knoten) {
-		return getSuccessors(knoten).size();
+		
+		return 0;
 	}
 
 	/**
 	 * Gibt die Zielknoten von allen incidenten gerichteten Kanten aus und die anderen Knoten aller incidenten ungerichteten Kanten
-	 * Wenn der knoten null ist wird null zurückgegeben
 	 */
+	//TODO zu Set ändern
 	@Override
-	public Collection<Knoten> getSuccessors(Knoten knoten) {
-		if (knoten==null) {
-			return null;
-		}
-		Iterator<Knoten> iterator = knotenList.iterator();
-		HashSet<Knoten> set = new HashSet<Knoten>();
-		while (iterator.hasNext()) {
-			Knoten successor = iterator.next();
-			if (isSuccessor(successor,knoten)) {
-				set.add(successor);
-			}
-		}
-		return set;
+	public Collection<Knoten> getSuccessors(Knoten arg0) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 
@@ -613,18 +571,11 @@ public class OGraph implements Graph<Knoten,Kante> {
 		}
 		return false;
 	}
-	/**
-	 * Kontrolliert ob vom Successor aus eine Kante zum Predecessor führt
-	 */
+
+	//TODO Was macht ist ein Predecessor? s.o.
 	@Override
-	public boolean isPredecessor(Knoten vorgaenger, Knoten knoten) {
-		Iterator<Kante> iterator =getOutEdges(vorgaenger).iterator();
-		while (iterator.hasNext()) {
-			Kante kante = iterator.next();
-			if (getOpposite(vorgaenger, kante).equals(knoten)) {
-				return true;
-			}
-		}
+	public boolean isPredecessor(Knoten arg0, Knoten arg1) {
+		// TODO Auto-generated method stub
 		return false;
 	}
 
@@ -632,25 +583,18 @@ public class OGraph implements Graph<Knoten,Kante> {
 	 * Tests ob ein Knoten Startknoten der Kante ist.
 	 */
 	@Override
-	public boolean isSource(Knoten knoten, Kante kante) {
-		if((kante.getTyp().equals(EdgeType.UNDIRECTED)&&kante.getZielKnoten().equals(knoten))||kante.getStartKnoten().equals(kante)) {
-			return true;
-		}
+	public boolean isSource(Knoten arg0, Kante arg1) {
+		// TODO Auto-generated method stub
 		return false;
 	}
 
 	/**
-	 * Kontrolliert ob vom Successor aus eine Kante zum Predecessor führt
+	 * 
 	 */
+	//TODO Was ist ein Successor? s.o.
 	@Override
-	public boolean isSuccessor(Knoten nachfolger, Knoten knoten) {
-		Iterator<Kante> iterator =getInEdges(nachfolger).iterator();
-		while (iterator.hasNext()) {
-			Kante kante = iterator.next();
-			if (getOpposite(nachfolger, kante).equals(knoten)) {
-				return true;
-			}
-		}
+	public boolean isSuccessor(Knoten arg0, Knoten arg1) {
+		// TODO Auto-generated method stub
 		return false;
 	}
 
