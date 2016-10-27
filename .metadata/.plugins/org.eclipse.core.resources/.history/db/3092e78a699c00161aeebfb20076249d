@@ -47,6 +47,7 @@ public class SaveLoad {
 		for (int i=0; i< kanten.size(); i++) {
 			String kantenString = kanten.get(i).toString()+"\n";
 			builder.append(kantenString);
+			System.out.println(builder.toString());
 		}
 		//TODO Eventuell noch eine Abfrage ob der destination String mit .gka endet
 		File file = new File(destination);

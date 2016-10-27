@@ -152,7 +152,7 @@ public class OGraph implements Graph<Knoten,Kante> {
 			return false;
 		}
 		for (int i=0; i<knotenList.size();i++) {
-			if (name.equals(knotenList.get(i).getName())) {
+			if (name.equals(kantenList.get(i).getName())) {
 				return true;
 			}
 		}

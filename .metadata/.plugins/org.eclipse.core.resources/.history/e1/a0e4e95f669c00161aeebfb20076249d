@@ -55,7 +55,7 @@ public class Fenster extends JFrame implements ActionListener {
 			JFileChooser lade;
 
 			lade = new JFileChooser();
-	        FileNameExtensionFilter filter = new FileNameExtensionFilter ("gka", "gka");
+	        FileNameExtensionFilter filter = new FileNameExtensionFilter (null, "gka");
 	        lade.setFileFilter(filter);
 	        lade.setDialogTitle("Lade Graph");
 	        lade.setVisible(true); 
@@ -76,18 +76,14 @@ public class Fenster extends JFrame implements ActionListener {
 			JFileChooser speicher;
 
 			speicher = new JFileChooser();
-	        FileNameExtensionFilter filter = new FileNameExtensionFilter ("gka", "gka");
+	        FileNameExtensionFilter filter = new FileNameExtensionFilter ("txt", "txt");
 	        speicher.setFileFilter(filter);
 	        speicher.setDialogTitle("Speichern unter...");
 	        speicher.setVisible(true); 
 	        speicher.showSaveDialog(this); 
 	        
 	        if (speicher.getSelectedFile()!=null) {
-	        	String ziel = speicher.getSelectedFile().getAbsolutePath();
-	        	if (!ziel.endsWith(".gka")) {
-	        		ziel=ziel+".gka";
-	        	}
-	        	SaveLoad.save(aktuellerGraph, ziel);
+	        	SaveLoad.save(aktuellerGraph, speicher.getSelectedFile().getAbsolutePath());
 	        }
 			
 		}

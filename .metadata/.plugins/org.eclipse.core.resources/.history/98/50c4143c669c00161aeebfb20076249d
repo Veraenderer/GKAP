@@ -21,7 +21,6 @@ public class Fenster extends JFrame implements ActionListener {
 	JMenu files;
 	JMenuItem bSave, bLoad;
 	BasicVisualizationServer<Knoten,Kante> vv;
-	OGraph aktuellerGraph;
 	public Fenster() {
 		
 		setTitle("Graphen");
@@ -37,7 +36,6 @@ public class Fenster extends JFrame implements ActionListener {
 		files.add(bLoad);
 		menubar.add(files);
 		
-		aktuellerGraph = new OGraph();
 		Layout<Knoten,Kante> layout = new CircleLayout<Knoten,Kante>(new OGraph());
 	    vv =  new BasicVisualizationServer<Knoten,Kante>(layout);
 	    vv.setPreferredSize(new Dimension(350,350));
@@ -55,15 +53,16 @@ public class Fenster extends JFrame implements ActionListener {
 			JFileChooser lade;
 
 			lade = new JFileChooser();
-	        FileNameExtensionFilter filter = new FileNameExtensionFilter ("gka", "gka");
+	        FileNameExtensionFilter filter = new FileNameExtensionFilter (null, "gka");
 	        lade.setFileFilter(filter);
 	        lade.setDialogTitle("Lade Graph");
 	        lade.setVisible(true); 
 	        lade.showOpenDialog(this); 
 	        if(lade.getSelectedFile()!=null) {
+	        	OGraph graph;
 	        	try {
-	        		aktuellerGraph = SaveLoad.load(lade.getSelectedFile());
-					Layout<Knoten,Kante> layout = new CircleLayout<Knoten,Kante>(aktuellerGraph);
+					graph = SaveLoad.load(lade.getSelectedFile());
+					Layout<Knoten,Kante> layout = new CircleLayout<Knoten,Kante>(graph);
 				    vv =  new BasicVisualizationServer<Knoten,Kante>(layout);
 				    vv.setPreferredSize(new Dimension(350,350));
 					setContentPane(vv);
@@ -71,25 +70,6 @@ public class Fenster extends JFrame implements ActionListener {
 					e1.printStackTrace();
 				}
 	        }
-		}
-		else if (e.getSource()==bSave) {
-			JFileChooser speicher;
-
-			speicher = new JFileChooser();
-	        FileNameExtensionFilter filter = new FileNameExtensionFilter ("gka", "gka");
-	        speicher.setFileFilter(filter);
-	        speicher.setDialogTitle("Speichern unter...");
-	        speicher.setVisible(true); 
-	        speicher.showSaveDialog(this); 
-	        
-	        if (speicher.getSelectedFile()!=null) {
-	        	String ziel = speicher.getSelectedFile().getAbsolutePath();
-	        	if (!ziel.endsWith(".gka")) {
-	        		ziel=ziel+".gka";
-	        	}
-	        	SaveLoad.save(aktuellerGraph, ziel);
-	        }
-			
 		}
 		
 	}

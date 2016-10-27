@@ -138,25 +138,11 @@ public class OGraph implements Graph<Knoten,Kante> {
 	 */
 	@Override
 	public boolean addVertex(Knoten knoten) {
-		if (knoten==null||containsVertex(knoten)||containsVertexName(knoten.getName())) {
+		if (knoten==null||containsVertex(knoten)) {
 			return false;
 		}
 		knotenList.add(knoten);
 		return true;
-	}
-	/**
-	 * Prüft ob es einen Knoten mit diesen Namen gibt
-	 */
-	public boolean containsVertexName(String name) {
-		if (name==null) {
-			return false;
-		}
-		for (int i=0; i<knotenList.size();i++) {
-			if (name.equals(knotenList.get(i).getName())) {
-				return true;
-			}
-		}
-		return false;
 	}
 	
 	/**

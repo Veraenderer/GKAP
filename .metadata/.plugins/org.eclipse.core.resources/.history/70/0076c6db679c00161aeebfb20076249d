@@ -33,7 +33,7 @@ public class Knoten {
 	}
 	
 	public String toString () {
-		return name+";";
+		return name;
 	}
 	
 }
